@@ -13,12 +13,12 @@ class TestGame(unittest.TestCase):
     def setUp(self):
         random_names = ['Rogerio','John','Alexander','Fiona','Shrek','Martin','Luther','Chopin']
         random_gender = ['M','F']
-    	self.game = Game()
-    	game_level = random.randint(1,4)
-    	print "Game Level " , str(game_level)
-    	self.game.choose_level(game_level)
-    	players_number = random.randint(1,4)
-    	print "Players Number " , str(players_number)
+        self.game = Game()
+        game_level = random.randint(1,4)
+        print "Game Level " , str(game_level)
+        self.game.choose_level(game_level)
+        players_number = random.randint(1,4)
+        print "Players Number " , str(players_number)
         self.game.players_number(players_number)
         for reg in range (0,self.game.players_num):
             self.game.choose_player(reg, random_names[random.randint(0,len(random_names)-1)], random_gender[random.randint(0,len(random_gender)-1)])
@@ -33,13 +33,13 @@ class TestGame(unittest.TestCase):
     """
     def test_game_level(self):
         self.assertIn(self.game.level,range(1,5),msg="Game Level Error")
-    
+
     """
     Test the 4 player number possibilities
     """
     def test_players_number(self):
         self.assertIn(self.game.players_num,range(1,5),msg="Players Number Error")
-    
+
     """
     Test production and game engines simulating player actions like buy and sell grains and lands
     The game doesnt have an 'end' set, yet, so the test fail when a player is out of cash or land
@@ -89,7 +89,7 @@ class TestGame(unittest.TestCase):
             wait(2)
             self.failIf(player.cash<0)
             self.failIf(player.land<100)
-    
+
     """
     Test 10 years of production mechanism calling the test above 10 times
     """

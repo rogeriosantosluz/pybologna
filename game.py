@@ -18,9 +18,9 @@ class Game:
 
     season = None
     seasons = ['DROUGHT - THREAT OF HUNGER! ',' BAD WEATHER - POOR CROP ',' TIME ONLY - REASONABLE CROP ',' GOOD TIME - GOOD HARVEST ',' GREAT WEATHER - GREAT HARVEST']
-   
+
     over = False
-    
+
     def __init__(self):
         pass
 
@@ -29,7 +29,7 @@ class Game:
 
         if self.gtalk != None:
 
-#        self.gtalk.replyMessage("")        
+            #        self.gtalk.replyMessage("")        
 #            self.gtalk.replyMessage("WELCOME TO BOLOGNA & MILANO")
 #            self.gtalk.replyMessage("")
 #            self.gtalk.replyMessage("")
@@ -98,7 +98,7 @@ class Game:
             player.sellers = 0
             player.settlers = 0
             player.bank_interest = 5
-        
+
         self.players.insert(reg,player)
 
     def show_instructions(self):
@@ -137,7 +137,7 @@ class Game:
         print("Season:"+ self.season)
 
     def rats(self, player):
-        
+
         if self.level == 0:
             player.rats = int(random.uniform(10,20))
         elif self.level == 1:
@@ -153,7 +153,7 @@ class Game:
 
     def random_season(self):
         self.season = random.choice(self.seasons)  
-    
+
     def production(self, player):
         player.year += 1
 
@@ -243,7 +243,7 @@ class Game:
         except ValueError:
             print("Invalid seconomic_option.")
             self.input_economic_option(player, input_test)
-        
+
         if input_test is None:    
             self.choose_economic_option(player.economic_option, player, input_test)
 
@@ -299,7 +299,7 @@ class Game:
                 player.backup = 0
                 wait(1)
                 return
-            
+
             player.backup -= player.grain_to_sell
             player.cash += ( player.grain_to_sell * player.grain_price )
             print("You sold "+str(player.grain_to_sell)+" grains")
@@ -322,7 +322,7 @@ class Game:
                 print("You bought "+str(can_buy)+" ACRES")
                 wait(1)
                 return
-            
+
             player.cash -= ( player.land_to_buy * player.land_price )
             player.land += player.land_to_buy
             print("You bought "+str(player.land_to_buy)+" ACRES")
@@ -344,7 +344,7 @@ class Game:
             player.land -= player.land_to_sell
             player.cash += player.land_to_sell * player.land_price
             print("You sold "+str(player.land_to_sell)+" ACRES")
- 
+
         except ValueError:
             print("Invalid number of ACRES.")
             self.sell_land(player, input_test)
@@ -366,7 +366,7 @@ class Game:
 
             player.backup = player.backup - player.grains_to_people
             print("You gave to people "+str(player.grains_to_people)+" grains")
- 
+
         except ValueError:
             print("Invalid number of grains.")
             self.grains_to_people(player, input_test)
@@ -430,7 +430,7 @@ class Game:
         elif self.level == 4:
             player.invasion_rate =  max ( int ( random.uniform(50,60) - float(player.soldiers) / 100) , 1)
 
-        
+
         player.lands_lost = int (player.land * player.invasion_rate / 100 )
         player.soldiers_lost = int (player.soldiers * player.invasion_rate / 100 )
 
@@ -442,7 +442,7 @@ class Game:
         self.clrscr(10)
 
         print("Year:" +str(player.year))
- 
+
         print("Barbarians invaded your land and attached "+str(player.lands_lost)+" ACRES")
         print("You lost "+str(player.soldiers_lost)+" soldiers in the battlefield. Now you have "+str(player.soldiers))
 
@@ -504,7 +504,7 @@ class Game:
         except ValueError:
             print("Invalid  monetary option.")
             self.input_monetary_option(player, input_test)
-            
+
         self.choose_monetary_option(player.economic_option, player, input_test)
 
     def choose_monetary_option(self, option, player, input_test):
@@ -527,7 +527,7 @@ class Game:
         except ValueError:
             print("Invalid number of %.")
             self.customs_taxes(player, input_test)        
-        
+
     def selling_taxes(self, player, input_test):
         try:
             player.selling_taxes = int( get_input("What is the new selling_taxes (0 To 50%) ?: ", input_test) )
@@ -583,9 +583,9 @@ class Game:
         except ValueError:
             print("Invalid investments option.")
             self.input_investments_option(player, input_test)
-            
+
         self.choose_investments_option(player.investments_option, player, input_test)        
-        
+
     def choose_investments_option(self, option, player, input_test):
         if option == 1:
             self.markets_to_buy(player)
@@ -694,7 +694,7 @@ class Game:
         except ValueError:
             print("Invalid key")
             self.press_any_key(input_test)        
-              
+
     def clrscr(self,lines):
         for i in range(1, lines):
             print("")             
@@ -711,7 +711,7 @@ class Game:
             self.rats(player)
             self.random_season()
             self.production(player)
-            
+
             self.economic_options(player,None)
             self.grains_to_people(player,None)
             self.population(player,None)

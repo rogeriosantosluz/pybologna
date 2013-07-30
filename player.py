@@ -28,7 +28,7 @@ class Player:
     land = 0
 
     gain = 0
-   
+
     economic_option = 0
     economic_options = []
 
@@ -48,7 +48,7 @@ class Player:
     deaths = 0
     immigrants = 0
     emigrants = 0
-    
+
     black_death_nobles = 0
     black_death_bishops = 0
     black_death_sellers = 0
@@ -58,7 +58,7 @@ class Player:
     sellers = 0
     settlers = 0
     population = 0
- 
+
     markets_profit = 0
     mills_profit = 0
     military_expenses = 0
@@ -78,7 +78,7 @@ class Player:
     monetary_option = 0
 
     investments_option = 0
-    
+
     is_playing = True
 
     #def __init__(self):
@@ -106,7 +106,7 @@ class Player:
             return self.title_male[self.title]
         else:
             return self.title_female[self.title]
-        
+
     def show_player(self, reg=0):
         print(self.show_title()+self.name)
 
