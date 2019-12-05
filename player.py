@@ -84,22 +84,22 @@ class Player:
     #def __init__(self):
         #print("Player Iniciado")
 
-    def input_gender(self):
-        self.gender = input("Please type your gender(M/F): ")
+    def input_gender(self,input_test):
+        self.gender = get_input("Please type your gender(M/F): ",input_test)
         if self.gender != "M" and self.gender != "F":
             self.input_gender()
 
-    def input_age(self):
+    def input_age(self,input_test):
         try:
-            self.age = int( input("Please type your age in years (1 to 110): ") )
+            self.age = int( get_input("Please type your age in years (1 to 110): ",input_test) )
             if (self.age < 1 or self.age > 110):
                 self.input_age()
         except ValueError:
             print("Invalid age.")
             self.input_age()
 
-    def input_name(self):
-        self.name = input("What is your name:")
+    def input_name(self,input_test):
+        self.name = get_input("What is your name:",input_test)
 
     def show_title(self):
         if self.gender == "M":
