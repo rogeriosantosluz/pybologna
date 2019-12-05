@@ -22,9 +22,8 @@ from game import Game
 """
 Starts the game, choose players and start turn while game is not over (never stops)
 """
-def start_game(gtalk):
+def start_game():
     game = Game()
-    game.gtalk = gtalk
     game.show_welcome
     game.clrscr(15)
     game.choose_level(None)
@@ -44,7 +43,7 @@ def start_game(gtalk):
 Main function to start the game
 """
 def main(argv):
-    start_game(None)
+    start_game()
 
 """
 Feel free to fix this.

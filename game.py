@@ -8,7 +8,6 @@ Class that represents the Game
 """
 class Game:
 
-    gtalk = None
     players_num = 0
     players = []
     cities = ["BOLOGNA","MILANO","VENEZA","TORINO"]
@@ -27,34 +26,17 @@ class Game:
     def show_welcome(self):
         self.clrscr(15)
 
-        if self.gtalk != None:
-
-            #        self.gtalk.replyMessage("")        
-#            self.gtalk.replyMessage("WELCOME TO BOLOGNA & MILANO")
-#            self.gtalk.replyMessage("")
-#            self.gtalk.replyMessage("")
-#            self.gtalk.replyMessage("BOLOGNA & MILANO IS A FANTASTIC GAME")
-#            self.gtalk.replyMessage("")
-#            self.gtalk.replyMessage("")
-#            self.gtalk.replyMessage("THAT WILL TEST YOUR ABILITY TO MANAGE A CITY, STATE OR A NATION")
-#            self.gtalk.replyMessage("")
-#            self.gtalk.replyMessage("")      
-
-            self.gtalk.replyMessage("WELCOME TO BOLOGNA & MILANO")  
-
-        else:
-
-            print("")
-            print("")        
-            print("WELCOME TO BOLOGNA & MILANO")
-            print("")
-            print("")
-            print("BOLOGNA & MILANO IS A FANTASTIC GAME")
-            print("")
-            print("")
-            print("THAT WILL TEST YOUR ABILITY TO MANAGE A CITY, STATE OR A NATION")
-            print("")
-            print("")        
+        print("")
+        print("")        
+        print("WELCOME TO BOLOGNA & MILANO")
+        print("")
+        print("")
+        print("BOLOGNA & MILANO IS A FANTASTIC GAME")
+        print("")
+        print("")
+        print("THAT WILL TEST YOUR ABILITY TO MANAGE A CITY, STATE OR A NATION")
+        print("")
+        print("")        
 
     def players_number(self,input_test):
         self.clrscr(40)
