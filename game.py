@@ -1,6 +1,6 @@
 import random
 import math
-from utils import *
+from utils import wait
 from player import Player
 
 """
@@ -38,12 +38,12 @@ class Game:
         print("")
         print("")        
 
-    def players_number(self,input_test):
+    def players_number(self):
         self.clrscr(40)
         print("PLAYERS")
         self.clrscr(10)
         try:
-            self.players_num = int( get_input("How much players will play? (up to 4): ",input_test) )
+            self.players_num = int( input("How much players will play? (up to 4): ") )
             if (self.players_num < 1 or self.players_num > 4):
                 self.players_number()
         except ValueError:
@@ -59,8 +59,8 @@ class Game:
         print("Welcome Governor of "+self.cities[reg])
         player = Player()
         player.city = self.cities[reg]
-        player.input_name(name)
-        player.input_gender(gender)
+        player.input_name()
+        player.input_gender()
         #player.input_age()
         #player.show_player(reg)
 
@@ -85,34 +85,34 @@ class Game:
 
     def show_instructions(self):
         print('A PARTIR DE AGORA  VOCE SERA O GOVERNANTE DE UMA CIDADE-ESTADO DO SECULO  XV.')
-        print('A CADA PERIODO DE BOM GOVERNO VOCE RECEBERA TITULOS CADA VEZ MAIORES.');
-        print('A EXPECTATIVA DE VIDA NAQUELA EPOCA ERA MUITO CURTA, LOGO VOCE DISPORA DE');
-        print('POUCO TEMPO PARA GOVERNAR.');
-        print('QUEM PRIMEIRO CHEGAR A REI OU RAINHA SERA O VENCEDOR DO JOGO.');
-        print('O TAMANHO DA TORRE NO CANTO SUPERIOR ESQUERDO INDICARA SE SUAS DEFESAS SAO');
-        print('ADEQUADAS.');
-        print('O TERMOMETRO INDICA SE SUAS TERRAS ESTAO EM FRANCA PRODUCAO, CASO CONTRARIO');
-        print('VOCE PRECISARA DE MAIS SERVOS.');
-        print('UMA BOA DISTRIBUICAO DE GRAOS A POPULACAO, AUMENTARA  A TAXA DE NATALIDADE E');
-        print('INCENTIVARA A MIGRACAO DE NOVOS SERVOS.');
-        print('TAXAS E IMPOSTOS ELEVADOS, AUMENTAM A ARRECADACAO MAS AFETAM A ECONOMIA DA');
-        print('NACAO.');
-        print('FACA UM GOVERNO DEMOCRATICO E LEMBRE-SE QUE, SEMPRE BOM COMPRAR NA BAIXA PARA');
-        print('VENDER NA ALTA.');
-        print('GOOD LUCK!');
+        print('A CADA PERIODO DE BOM GOVERNO VOCE RECEBERA TITULOS CADA VEZ MAIORES.')
+        print('A EXPECTATIVA DE VIDA NAQUELA EPOCA ERA MUITO CURTA, LOGO VOCE DISPORA DE')
+        print('POUCO TEMPO PARA GOVERNAR.')
+        print('QUEM PRIMEIRO CHEGAR A REI OU RAINHA SERA O VENCEDOR DO JOGO.')
+        print('O TAMANHO DA TORRE NO CANTO SUPERIOR ESQUERDO INDICARA SE SUAS DEFESAS SAO')
+        print('ADEQUADAS.')
+        print('O TERMOMETRO INDICA SE SUAS TERRAS ESTAO EM FRANCA PRODUCAO, CASO CONTRARIO')
+        print('VOCE PRECISARA DE MAIS SERVOS.')
+        print('UMA BOA DISTRIBUICAO DE GRAOS A POPULACAO, AUMENTARA  A TAXA DE NATALIDADE E')
+        print('INCENTIVARA A MIGRACAO DE NOVOS SERVOS.')
+        print('TAXAS E IMPOSTOS ELEVADOS, AUMENTAM A ARRECADACAO MAS AFETAM A ECONOMIA DA')
+        print('NACAO.')
+        print('FACA UM GOVERNO DEMOCRATICO E LEMBRE-SE QUE, SEMPRE BOM COMPRAR NA BAIXA PARA')
+        print('VENDER NA ALTA.')
+        print('GOOD LUCK!')
 
-    def choose_level(self,input_test):
+    def choose_level(self):
         print("GAME LEVEL")
         for level in self.game_level:
             print(level)
 
         try:
-            self.level = int( get_input("Please Choose Game Level (1 to 4): ",input_test) )
+            self.level = int( input("Please Choose Game Level (1 to 4): ") )
             if (self.level < 1 or self.level > 4):
-                self.choose_level(input_test)
+                self.choose_level()
         except ValueError:
             print("Invalid level.")
-            self.choose_level(input_test)
+            self.choose_level()
 
     # In agriculture, the harvest is the process of gathering mature crops from the fields. 
     def show_season(self):
@@ -178,7 +178,7 @@ class Game:
         player.demand = int (player.population + ( ( player.population * player.production_rate ) / 100 ) )
 
 
-    def economic_options(self, player, input_test):
+    def economic_options(self, player):
         player.show_player()
         self.clrscr(20)
         print("Year:" +str(player.year))
@@ -192,7 +192,7 @@ class Game:
         print("Production rate: "+str(player.production_rate)+"%")
         print("")
         print('GRAIN      GRAIN       GRAIN      LAND        CASH')
-        print('RESERVE    DEMAND      PRICE      PRICE');
+        print('RESERVE    DEMAND      PRICE      PRICE')
         values = ""
         values = str(player.backup).ljust(11)
         values = values +  str(player.demand).ljust(12)  
@@ -214,41 +214,39 @@ class Game:
         print("LAND ==> "+str(player.land)+" ACRE")
         print("POPULATION    ==> "+str(player.population)+"")
 
-        if input_test is None:    
-            self.input_economic_option(player, input_test)        
+        self.input_economic_option(player)        
 
-    def input_economic_option(self, player, input_test):
+    def input_economic_option(self, player):
         try:
-            player.economic_option = int( get_input("Option? (0 to 4): ",input_test) )
+            player.economic_option = int( input("Option? (0 to 4): ") )
             if (player.economic_option < 0 or player.economic_option > 4):
                 self.input_economic_option(player)
         except ValueError:
             print("Invalid seconomic_option.")
-            self.input_economic_option(player, input_test)
+            self.input_economic_option(player)
 
-        if input_test is None:    
-            self.choose_economic_option(player.economic_option, player, input_test)
+        self.choose_economic_option(player.economic_option, player)
 
-    def choose_economic_option(self, option, player, input_test):
+    def choose_economic_option(self, option, player):
         if option == 1:
-            self.buy_grain(player, input_test)
-            self.economic_options(player, input_test)
+            self.buy_grain(player)
+            self.economic_options(player)
         elif option == 2:
-            self.sell_grain(player, input_test)
-            self.economic_options(player, input_test)
+            self.sell_grain(player)
+            self.economic_options(player)
         elif option == 3:
-            self.buy_land(player, input_test)
-            self.economic_options(player, input_test)
+            self.buy_land(player)
+            self.economic_options(player)
         elif option == 4:
-            self.sell_land(player, input_test)
-            self.economic_options(player, input_test)
+            self.sell_land(player)
+            self.economic_options(player)
         elif option == 0:
             None
 
 
-    def buy_grain(self, player, input_test):
+    def buy_grain(self, player):
         try:
-            player.grain_to_buy = int( get_input("How much grain will you buy?: ",input_test) )
+            player.grain_to_buy = int( input("How much grain will you buy?: ") )
             if (player.grain_to_buy < 0):
                 self.buy_grain(player)
             if player.grain_price * player.grain_to_buy >  player.cash:
@@ -266,11 +264,11 @@ class Game:
             wait(1) 
         except ValueError:
             print("Invalid number of grains.")
-            self.buy_grain(player, input_test)
+            self.buy_grain(player)
 
-    def sell_grain(self, player, input_test):
+    def sell_grain(self, player):
         try:
-            player.grain_to_sell = int( get_input("How much grain will you sell?: ",input_test) )
+            player.grain_to_sell = int( input("How much grain will you sell?: ") )
             if (player.grain_to_sell < 0):
                 self.sell_grain(player)
             if player.backup < player.grain_to_sell:
@@ -288,11 +286,11 @@ class Game:
             wait(1) 
         except ValueError:
             print("Invalid number of grains.")
-            self.sell_grain(player, input_test)
+            self.sell_grain(player)
 
-    def buy_land(self, player, input_test):
+    def buy_land(self, player):
         try:
-            player.land_to_buy = int( get_input("How much land will you buy?: ",input_test) )
+            player.land_to_buy = int( input("How much land will you buy?: ") )
             if player.land_to_buy < 0:
                 self.buy_land(player)
             if player.cash < ( player.land_to_buy * player.land_price ):
@@ -311,11 +309,11 @@ class Game:
             wait(1)
         except ValueError:
             print("Invalid number of ACRES.")
-            self.buy_land(player, input_test)
+            self.buy_land(player)
 
-    def sell_land(self, player, input_test):
+    def sell_land(self, player):
         try:
-            player.land_to_sell = int( get_input("How much land will you sell?: ", input_test) )
+            player.land_to_sell = int( input("How much land will you sell?: ") )
             if player.land_to_sell < 0:
                 self.sell_land(player)
             #Cant sell more than 50% of the land at a minimum of 1000 ACRES
@@ -329,11 +327,11 @@ class Game:
 
         except ValueError:
             print("Invalid number of ACRES.")
-            self.sell_land(player, input_test)
+            self.sell_land(player)
 
-    def grains_to_people(self, player, input_test):
+    def grains_to_people(self, player):
         try:
-            player.grains_to_people = int( get_input("How much grains will you give to your people ?: ", input_test) )
+            player.grains_to_people = int( input("How much grains will you give to your people ?: ") )
             if (player.grains_to_people < 0):
                 self.grains_to_people(player)
             twenty_percent = int( player.backup * ( 0.2 ) )
@@ -351,7 +349,7 @@ class Game:
 
         except ValueError:
             print("Invalid number of grains.")
-            self.grains_to_people(player, input_test)
+            self.grains_to_people(player)
 
     def count_births(self, player):
         if player.grains_to_people > player.demand:
@@ -388,9 +386,8 @@ class Game:
         player.population += player.births - player.deaths + player.immigrants - player.emigrants 
         print(" This season your country has a population of "+str(player.population)+" settlers")
 
-    def population(self, player, input_test):
-        if input_test is None:
-            self.clrscr(40)
+    def population(self, player):
+        self.clrscr(40)
         player.show_player()
         self.clrscr(10)
         print("Year:" +str(player.year))
@@ -400,7 +397,7 @@ class Game:
         self.count_emigrants(player)
         self.count_settlers(player)
 
-    def invasion(self, player, input_test):
+    def invasion(self, player):
         if self.level == 0:
             player.invasion_rate = max ( int ( random.uniform(10,20) - float(player.soldiers) / 100) , 1)
         elif self.level == 1:
@@ -428,7 +425,7 @@ class Game:
         print("Barbarians invaded your land and attached "+str(player.lands_lost)+" ACRES")
         print("You lost "+str(player.soldiers_lost)+" soldiers in the battlefield. Now you have "+str(player.soldiers))
 
-    def market(self, player, input_test):
+    def market(self, player):
         self.clrscr(40)
         player.show_player()
         self.clrscr(10) 
@@ -437,7 +434,7 @@ class Game:
         print("Military expenses were "+str(player.military_expenses)+" N Florins")
 
     #The Black Death was one of the most devastating pandemics in human history, peaking in Europe between 1348 and 1350
-    def black_death(self, player, input_test):
+    def black_death(self, player):
         self.clrscr(40)
         player.show_player()
         print("")
@@ -449,13 +446,13 @@ class Game:
         print(str(player.black_death_sellers) + '   COMERCIANTES +')
         print(str(player.black_death_settlers) + '   SERVOS +')
 
-    def bank(self, player, input_test):
+    def bank(self, player):
         self.clrscr(40)
         player.show_player()
         self.clrscr(10)
         print("Banks charged you in "+ str(player.bank_interest) + "% INTEREST ON DEBT")
 
-    def monetary(self, player, input_test):
+    def monetary(self, player):
         self.clrscr(40)
         player.show_player()
         self.clrscr(10)
@@ -478,68 +475,68 @@ class Game:
         print('         0. CONTINUE          ')
         print("")
 
-    def input_monetary_option(self, player, input_test):
+    def input_monetary_option(self, player):
         try:
-            player.monetary_option = int( get_input("Option? (0 to 4): ", input_test) )
+            player.monetary_option = int( input("Option? (0 to 4): ") )
             if (player.monetary_option < 0 or player.monetary_option > 4):
-                self.input_monetary_option(player, input_test)
+                self.input_monetary_option(player)
         except ValueError:
             print("Invalid  monetary option.")
-            self.input_monetary_option(player, input_test)
+            self.input_monetary_option(player)
 
-        self.choose_monetary_option(player.economic_option, player, input_test)
+        self.choose_monetary_option(player.economic_option, player)
 
-    def choose_monetary_option(self, option, player, input_test):
+    def choose_monetary_option(self, option, player):
         if option == 1:
-            self.customs_taxes(player, input_test)
+            self.customs_taxes(player)
         elif option == 2:
-            self.selling_taxes(player, input_test)
+            self.selling_taxes(player)
         elif option == 3:
-            self.taxes(player, input_test)
+            self.taxes(player)
         elif option == 4:
-            self.justice(player, input_test)
+            self.justice(player)
         elif option == 0:
             None
 
-    def customs_taxes(self, player, input_test):
+    def customs_taxes(self, player):
         try:
-            player.customs_taxes = int( get_input("What is the new customs taxes (0 To 100%) ?: ", input_test) )
+            player.customs_taxes = int( input("What is the new customs taxes (0 To 100%) ?: ") )
             if (player.customs_taxes < 0 or player.customs_taxes > 100):
-                self.customs_taxes(player, input_test)
+                self.customs_taxes(player)
         except ValueError:
             print("Invalid number of %.")
-            self.customs_taxes(player, input_test)        
+            self.customs_taxes(player)        
 
-    def selling_taxes(self, player, input_test):
+    def selling_taxes(self, player):
         try:
-            player.selling_taxes = int( get_input("What is the new selling_taxes (0 To 50%) ?: ", input_test) )
+            player.selling_taxes = int( input("What is the new selling_taxes (0 To 50%) ?: ") )
             if (player.selling_taxes < 0 or player.selling_taxes > 50):
-                self.selling_taxes(player, input_test)
+                self.selling_taxes(player)
         except ValueError:
             print("Invalid number of %.")
-            self.selling_taxes(player, input_test)
+            self.selling_taxes(player)
 
-    def taxes(self, player, input_test):
+    def taxes(self, player):
         try:
             player.taxes = int( input("What is the new taxes (0 To 25%) ?: ") )
             if (player.taxes < 0 or player.selling_taxes > 25):
-                self.taxes(player, input_test)
+                self.taxes(player)
         except ValueError:
             print("Invalid number of %.")
-            self.taxes(player, input_test)
+            self.taxes(player)
 
-    def justice(self, player, input_test):
+    def justice(self, player):
         for justice in self.type_of_justice:
             print(justice)
         try:
-            player.justice = int( get_input("Choose the kind of Justice (1 to 4): ", input_test) )
+            player.justice = int( input("Choose the kind of Justice (1 to 4): ") )
             if (player.justice < 1 or player.justice > 4):
-                self.justice(player, input_test)
+                self.justice(player)
         except ValueError:
             print("Invalid option.")
-            self.justice(player, input_test)
+            self.justice(player)
 
-    def investments(self, player, input_test):
+    def investments(self, player):
         self.clrscr(40)
         player.show_player()
         self.clrscr(10)
@@ -557,24 +554,24 @@ class Game:
         print
         print('AVAILABLE CASH: '+str(player.cash)+' FLORINS')
 
-    def input_investments_option(self, player, input_test):
+    def input_investments_option(self, player):
         try:
-            player.investments_option = int( get_input("Option? (0 to 7): ", input_test) )
+            player.investments_option = int( input("Option? (0 to 7): ") )
             if (player.investments_option < 0 or player.investments_option > 7):
-                self.input_investments_option(player, input_test)
+                self.input_investments_option(player)
         except ValueError:
             print("Invalid investments option.")
-            self.input_investments_option(player, input_test)
+            self.input_investments_option(player)
 
-        self.choose_investments_option(player.investments_option, player, input_test)        
+        self.choose_investments_option(player.investments_option, player)        
 
-    def choose_investments_option(self, option, player, input_test):
+    def choose_investments_option(self, option, player):
         if option == 1:
             self.markets_to_buy(player)
         elif option == 2:
             self.mills_to_buy(player)
         elif option == 3:
-            self.palaces_to_buy(player)
+            self.palace_to_buy(player)
         elif option == 4:
             self.cathedral_to_buy(player)
         elif option == 5:
@@ -586,50 +583,50 @@ class Game:
         elif option == 0:
             None
 
-    def markets_to_buy(self, player, input_test):
+    def markets_to_buy(self, player):
         try:
-            player.markets_to_buy = int( get_input("How much markets will you buy?: ", input_test) )
+            player.markets_to_buy = int( input("How much markets will you buy?: ") )
             if (player.markets_to_buy < 0 or player.markets_to_buy > 10000):
-                self.markets_to_buy(player, input_test)
+                self.markets_to_buy(player)
         except ValueError:
             print("Invalid number of markets.")
-            self.markets_to_buy(player, input_test)        
+            self.markets_to_buy(player)        
 
-    def mills_to_buy(self, player, input_test):
+    def mills_to_buy(self, player):
         try:
-            player.mills_to_buy = int( get_input("How much mills will you buy?: ", input_test) )
+            player.mills_to_buy = int( input("How much mills will you buy?: ") )
             if (player.mills_to_buy < 0 or player.mills_to_buy > 10000):
-                self.mills_to_buy(player, input_test)
+                self.mills_to_buy(player)
         except ValueError:
             print("Invalid number of mills.")
-            self.mills_to_buy(player, input_test)
+            self.mills_to_buy(player)
 
-    def palace_to_buy(self, player, input_test):
+    def palace_to_buy(self, player):
         try:
-            player.palace_to_buy = int( get_input("How much palace will you buy?: ", input_test) )
+            player.palace_to_buy = int( input("How much palace will you buy?: ") )
             if (player.palace_to_buy < 0 or player.palace_to_buy > 10000):
-                self.palace_to_buy(player, input_test)
+                self.palace_to_buy(player)
         except ValueError:
             print("Invalid number of palace.")
-            self.palace_to_buy(player, input_test)                
+            self.palace_to_buy(player)                
 
-    def cathedral_to_buy(self, player, input_test):
+    def cathedral_to_buy(self, player):
         try:
-            player.cathedral_to_buy = int( get_input("How much cathedral will you buy?: ", input_test) )
+            player.cathedral_to_buy = int( input("How much cathedral will you buy?: ") )
             if (player.cathedral_to_buy < 0 or player.cathedral_to_buy > 10000):
-                self.cathedral_to_buy(player, input_test)
+                self.cathedral_to_buy(player)
         except ValueError:
             print("Invalid number of cathedral.")
-            self.cathedral_to_buy(player, input_test)
+            self.cathedral_to_buy(player)
 
-    def troops_to_buy(self, player, input_test):
+    def troops_to_buy(self, player):
         try:
             soldier_price = max(int(float(player.invasion_rate)-(float(player.invasion_rate)*float(player.population/100)/float(player.population/(player.population/100)*10))),10)
             print("The price of a soldier is " + str(soldier_price))#str(max(player.invasion_rate * 10,10)))
             wait(3)
             #soldier_price = max(player.invasion_rate * 10,10)
             twenty_percent = int( player.population * ( 0.2 ) )
-            player.troops_to_buy = int( get_input("How much soldiers will you buy?: ", input_test) )
+            player.troops_to_buy = int( input("How much soldiers will you buy?: ") )
             if (player.troops_to_buy > twenty_percent or player.cash < player.troops_to_buy * soldier_price):
                 can_buy = twenty_percent
                 if can_buy * soldier_price < player.cash:
@@ -648,18 +645,18 @@ class Game:
         except ValueError:
 
             print("Invalid number of troops.")
-            self.troops_to_buy(player, input_test)
+            self.troops_to_buy(player)
 
-    def compare(self, player, input_test):
+    def compare(self, player):
         print("Year:" +str(player.year))
-        print('NOB   SOL   CLE   COM   SERV    ACRE       CASH ');
-        print('====================================================');
+        print('NOB   SOL   CLE   COM   SERV    ACRE       CASH ')
+        print('====================================================')
         print(str(player.nobles).ljust(6)+str(player.soldiers).ljust(6)+str(player.bishops).ljust(6)+str(player.sellers).ljust(6)+str(player.population).ljust(8)+str(player.land).ljust(11)+str(player.cash))
 
     def map(self, player):
         print("MAP...")
 
-    def promotion(self, player, input_test):
+    def promotion(self, player):
         self.clrscr(40)
         player.show_player()
         self.clrscr(10)
@@ -668,14 +665,14 @@ class Game:
         self.clrscr(5)
         print("You are now "+ player.show_title() + "of "+ player.city)
 
-    def press_any_key(self, input_test):
+    def press_any_key(self):
         try:
-            pressed = get_input("Press any key to Continue or Q to quit the game... ", input_test)
+            pressed = input("Press any key to Continue or Q to quit the game... ")
             if (pressed == "Q"):
                 self.over = True
         except ValueError:
             print("Invalid key")
-            self.press_any_key(input_test)        
+            self.press_any_key()        
 
     def clrscr(self,lines):
         for i in range(1, lines):
@@ -694,29 +691,29 @@ class Game:
             self.random_season()
             self.production(player)
 
-            self.economic_options(player,None)
-            self.grains_to_people(player,None)
-            self.population(player,None)
-            self.press_any_key(None)
-            self.troops_to_buy(player,None)
-            self.press_any_key(None)
-            self.invasion(player,None)
-            self.press_any_key(None)
-            self.compare(player,None)
-            self.press_any_key(None)
-            self.market(player,None)
-            self.press_any_key(None)
-            self.black_death(player,None)
-            self.press_any_key(None)
-            self.monetary(player,None)
-            self.input_monetary_option(player,None)
-            self.bank(player,None)
-            self.press_any_key(None)            
-            self.investments(player,None)
-            self.input_investments_option(player,None)
-            self.bank(player,None)
-            self.press_any_key(None)
-            self.promotion(player,None)
-            self.press_any_key(None)            
+            self.economic_options(player)
+            self.grains_to_people(player)
+            self.population(player)
+            self.press_any_key()
+            self.troops_to_buy(player)
+            self.press_any_key()
+            self.invasion(player)
+            self.press_any_key()
+            self.compare(player)
+            self.press_any_key()
+            self.market(player)
+            self.press_any_key()
+            self.black_death(player)
+            self.press_any_key()
+            self.monetary(player)
+            self.input_monetary_option(player)
+            self.bank(player)
+            self.press_any_key()            
+            self.investments(player)
+            self.input_investments_option(player)
+            self.bank(player)
+            self.press_any_key()
+            self.promotion(player)
+            self.press_any_key()            
 
 

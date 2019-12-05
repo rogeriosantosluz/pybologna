@@ -13,6 +13,8 @@ v0.1.2 get_input() is being used to treat input and raw_input compatibilities be
 
 v0.1.3 TDD implemented. Please see the last lines of this code to run tests. 'Invasion' and 'Troops to buy' functions created. Best production random values. Invasion needs adjustments (barbarians are very efficient) and soldiers neeed to be summarized with villagers to adjust 20% militar population. 
 
+v0.1.4 Removed all input_test
+
 TODO: initial variables for all levels, random values for production are very wide, need to implement market, black death, monetary, bank, maps, investments and promotions, 
 
 '''
@@ -26,9 +28,9 @@ def start_game():
     game = Game()
     game.show_welcome
     game.clrscr(15)
-    game.choose_level(None)
+    game.choose_level()
     #prompts for the number of Players
-    game.players_number(None)
+    game.players_number()
     #for each player prompt for some questions and create players in the game
     for reg in range (0,game.players_num):
         game.choose_player(reg, None, None)
